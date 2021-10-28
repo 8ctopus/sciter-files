@@ -50,25 +50,52 @@ document.ready = function() {
     console.line();
 
     sync_tests();
-    async_tests();
+    //async_tests();
 }
 
 function sync_tests()
 {
     let file = ".gitignore";
 
-    console.log(`sync read file fs.$readfile ${file} -`, sciter.decode(sys.fs.$readfile(file)));
+    const stat = sys.fs.$stat(file);
+
+    //console.log(`sync file exists ${file} - isFile ${stat.isFile} - isDirectory ${stat.isDirectory} - isSymbolicLink ${isSymbolicLink}`);
+    console.log(`sync file exists ${file} - isFile ${stat.isFile} - isDirectory ${stat.isDirectory}`);
     console.line();
+
+    console.log(`sync read file ${file} -`, sciter.decode(sys.fs.$readfile(file)));
+    console.line();
+
+    // DOES NOT EXIST YET
+    //console.log(`sync write file ${file} -`, sys.fs.$writefile(file, sciter.encode("test")));
+    //console.line();
+
+    // DOES NOT EXIST YET
+    //console.log(`sync copy file ${file} -`, sys.fs.$copyfile(file, file + ".copy"));
+    //console.line();
+
+    // DOES NOT EXIST YET
+    //console.log(`sync rename file ${file} -`, sys.fs.$rename(file + ".copy", file + ".copy2"));
+    //console.line();
+
+    // DOES NOT EXIST YET
+    //console.log(`sync delete file ${file} -`, sys.fs.$unlink(file + ".copy2"));
+    //console.line();
 
     let dir = "bin";
 
-    console.log(`sync read dir fs.$readdir ${dir} -`, sys.fs.$readdir(dir));
+    console.log(`sync read dir  ${dir} -`, sys.fs.$readdir(dir));
     console.line();
+
+    // DOES NOT EXIST YET
+    //console.log(`sync scan dir ${dir} -`, sys.fs.$scandir(dir));
+    //console.line();
 
     dir = "test";
 
     console.log(`sync make dir fs.$mkdir ${dir} - `, sys.fs.$mkdir(dir));
     console.line();
+
 }
 
 function async_tests()
