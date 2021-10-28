@@ -1,6 +1,6 @@
 # sciter files
 
-This is a [sciter.js](https://sciter.com/) files demo.
+This is a [sciter.js](https://sciter.com/) project that experiments with the filesystem.
 
 It explores how to async/sync create, read, write and delete both files and directories.
 

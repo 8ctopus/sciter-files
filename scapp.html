@@ -49,10 +49,31 @@ document.ready = function() {
 
     console.line();
 
+    sync_tests();
+    async_tests();
+}
+
+function sync_tests()
+{
     let file = ".gitignore";
 
     console.log(`sync read file fs.$readfile ${file} -`, sciter.decode(sys.fs.$readfile(file)));
     console.line();
+
+    let dir = "bin";
+
+    console.log(`sync read dir fs.$readdir ${dir} -`, sys.fs.$readdir(dir));
+    console.line();
+
+    dir = "test";
+
+    console.log(`sync make dir fs.$mkdir ${dir} - `, sys.fs.$mkdir(dir));
+    console.line();
+}
+
+function async_tests()
+{
+    let file = ".gitignore";
 
     sys.fs.readFile(file)
         .then(function(a) {
@@ -62,14 +83,21 @@ document.ready = function() {
 
     let dir = "bin";
 
-    console.log(`sync read dir fs.$readdir ${dir} -`, sys.fs.$readdir(dir));
-    console.line();
-
     sys.fs.readdir(dir)
         .then(function(a) {
             console.log(`async read dir fs.readdir ${dir} -`, a);
             console.line();
         })
+
+/*
+    does not exist?
+
+    sys.fs.mkdir(dir)
+        .then(function(a) {
+            console.log(`async make dir fs.mkdir ${dir} -`, a);
+            console.line();
+        });
+*/
 
     sys.fs.copyfile(file, ".gitignore.copy")
         .then(function(a) {
@@ -85,19 +113,6 @@ document.ready = function() {
 
     dir = "test";
 
-/*
-    does not exist?
-
-    sys.fs.mkdir(dir)
-        .then(function(a) {
-            console.log(`async make dir fs.mkdir ${dir} -`, a);
-            console.line();
-        });
-*/
-
-    console.log("sync make dir fs.$mkdir ${dir} - ", sys.fs.$mkdir(dir));
-    console.line();
-
     sys.fs.rmdir(dir)
         .then(function(a) {
             console.log(`async remove dir fs.rmdir ${dir} -`, a);
@@ -112,7 +127,6 @@ document.ready = function() {
             console.line();
         });
 
-    // create temporary file
     sys.fs.mkstemp("test-XXXXXX")
         .then(function(a) {
             console.log(`async create temporary file fs.mkstemp ${template} -`, a);
