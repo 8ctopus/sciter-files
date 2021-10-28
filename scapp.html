@@ -1,0 +1,139 @@
+<html
+    window-width="800dip"
+    window-height="600dip"
+>
+<head>
+<title>sciter files demo</title>
+<style>
+
+@import url(vendor/8ctopus/sciter-logger/src/logger.css);
+
+</style>
+<script type="module">
+
+import {logger} from "vendor/8ctopus/sciter-logger/src/logger.js";
+import * as utils from "vendor/8ctopus/sciter-utils/src/utils.js";
+import * as sys from "@sys";
+import * as sciter from "@sciter";
+
+// capture unhandled exceptions
+logger.capture(unhandledExceptionHandler);
+
+// initialize logger
+logger.init();
+
+// attach logger to console
+logger.attach();
+
+document.ready = function() {
+    // redirect logger output to plaintext
+    logger.plaintext(document.$("plaintext#logger"));
+
+    // add support for F5 reload
+    utils.addReloadWindow();
+
+    // close window on escape key press
+    utils.closeWindowOnEscape(Window.this);
+
+    // center window on screen
+    utils.centerWindow(Window.this, "screen");
+
+    // bring window to front and set input focus
+    if (Window.this.activate(true))
+        console.log("Activate window - OK");
+    else
+        console.error("Activate window - FAILED");
+
+    // log sciter version
+    console.debug(utils.sciterInfo());
+
+    console.line();
+
+    let file = ".gitignore";
+
+    console.log(`sync read file fs.$readfile ${file} -`, sciter.decode(sys.fs.$readfile(file)));
+    console.line();
+
+    sys.fs.readFile(file)
+        .then(function(a) {
+            console.log(`async read file fs.readFile ${file} -`, sciter.decode(a));
+            console.line();
+        })
+
+    let dir = "bin";
+
+    console.log(`sync read dir fs.$readdir ${dir} -`, sys.fs.$readdir(dir));
+    console.line();
+
+    sys.fs.readdir(dir)
+        .then(function(a) {
+            console.log(`async read dir fs.readdir ${dir} -`, a);
+            console.line();
+        })
+
+    sys.fs.copyfile(file, ".gitignore.copy")
+        .then(function(a) {
+            console.log(`async copy file fs.copyfile ${file} -`, a);
+            console.line();
+        });
+
+    sys.fs.rename(".gitignore.copy", ".gitignore.copy2")
+        .then(function(a) {
+            console.log("async rename file fs.rename - ", a);
+            console.line();
+        });
+
+    dir = "test";
+
+/*
+    does not exist?
+
+    sys.fs.mkdir(dir)
+        .then(function(a) {
+            console.log(`async make dir fs.mkdir ${dir} -`, a);
+            console.line();
+        });
+*/
+
+    console.log("sync make dir fs.$mkdir ${dir} - ", sys.fs.$mkdir(dir));
+    console.line();
+
+    sys.fs.rmdir(dir)
+        .then(function(a) {
+            console.log(`async remove dir fs.rmdir ${dir} -`, a);
+            console.line();
+        });
+
+    let template = "test-XXXXXX";
+
+    sys.fs.mkdtemp(template)
+        .then(function(a) {
+            console.log(`async create temporary directory fs.mkdtemp ${template} -`, a);
+            console.line();
+        });
+
+    // create temporary file
+    sys.fs.mkstemp("test-XXXXXX")
+        .then(function(a) {
+            console.log(`async create temporary file fs.mkstemp ${template} -`, a);
+            console.line();
+        });
+}
+
+/**
+ * Unhandled exception handler
+ * @param  Error|String e
+ * @return void
+ */
+function unhandledExceptionHandler(e)
+{
+    // log exception using exception if it exists, error otherwise
+    typeof console.exception === "function" ? console.exception(e) : console.error(e);
+}
+
+</script>
+</head>
+<body>
+    <plaintext #logger readonly />
+</body>
+</html>
