@@ -59,6 +59,8 @@ function sync_tests()
 
     const stat = sys.fs.$stat(file);
 
+    console.log(`stat object -`, stat);
+
     //console.log(`sync file exists ${file} - isFile ${stat.isFile} - isDirectory ${stat.isDirectory} - isSymbolicLink ${isSymbolicLink}`);
     console.log(`sync file exists ${file} - isFile ${stat.isFile} - isDirectory ${stat.isDirectory}`);
     console.line();
