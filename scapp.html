@@ -49,8 +49,8 @@ document.ready = function() {
 
     console.line();
 
-    sync_tests();
-    //async_tests();
+    //sync_tests();
+    async_tests();
 }
 
 function sync_tests()
@@ -100,67 +100,56 @@ function sync_tests()
 
 }
 
-function async_tests()
+async function async_tests()
 {
     let file = ".gitignore";
 
-    sys.fs.readFile(file)
-        .then(function(a) {
-            console.log(`async read file fs.readFile ${file} -`, sciter.decode(a));
-            console.line();
-        })
+    let result = await sys.fs.readFile(file);
+
+    console.log(`async read file fs.readFile ${file} -`, sciter.decode(result));
+    console.line();
+
+    result = await sys.fs.copyfile(file, ".gitignore.copy");
+
+    console.log(`async copy file fs.copyfile ${file} -`, result);
+    console.line();
+
+    result = await sys.fs.rename(".gitignore.copy", ".gitignore.copy2")
+
+    console.log("async rename file fs.rename - ", result);
+    console.line();
 
     let dir = "bin";
 
-    sys.fs.readdir(dir)
-        .then(function(a) {
-            console.log(`async read dir fs.readdir ${dir} -`, a);
-            console.line();
-        })
+    result = await sys.fs.readdir(dir);
 
-/*
-    does not exist?
-
-    sys.fs.mkdir(dir)
-        .then(function(a) {
-            console.log(`async make dir fs.mkdir ${dir} -`, a);
-            console.line();
-        });
-*/
-
-    sys.fs.copyfile(file, ".gitignore.copy")
-        .then(function(a) {
-            console.log(`async copy file fs.copyfile ${file} -`, a);
-            console.line();
-        });
-
-    sys.fs.rename(".gitignore.copy", ".gitignore.copy2")
-        .then(function(a) {
-            console.log("async rename file fs.rename - ", a);
-            console.line();
-        });
+    console.log(`async read dir fs.readdir ${dir} -`, result);
+    console.line();
 
     dir = "test";
 
-    sys.fs.rmdir(dir)
-        .then(function(a) {
-            console.log(`async remove dir fs.rmdir ${dir} -`, a);
-            console.line();
-        });
+    // DOES NOT EXIST
+    //result = sys.fs.mkdir(dir);
+
+    //console.log(`async make dir fs.mkdir ${dir} -`, result);
+    //console.line();
+
+    result = await sys.fs.rmdir(dir);
+
+    console.log(`async remove dir fs.rmdir ${dir} -`, result);
+    console.line();
 
     let template = "test-XXXXXX";
 
-    sys.fs.mkdtemp(template)
-        .then(function(a) {
-            console.log(`async create temporary directory fs.mkdtemp ${template} -`, a);
-            console.line();
-        });
+    result = await sys.fs.mkdtemp(template);
 
-    sys.fs.mkstemp("test-XXXXXX")
-        .then(function(a) {
-            console.log(`async create temporary file fs.mkstemp ${template} -`, a);
-            console.line();
-        });
+    console.log(`async create temporary directory fs.mkdtemp ${template} -`, result);
+    console.line();
+
+    result = await sys.fs.mkstemp("test-XXXXXX");
+
+    console.log(`async create temporary file fs.mkstemp ${template} -`, result);
+    console.line();
 }
 
 /**
