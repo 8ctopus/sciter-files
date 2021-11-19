@@ -7,10 +7,10 @@ It explores how to async/sync create, read, write and delete both files and dire
 ## demo
 
 - git clone the repository
-- on Mac only `chmod +x install.sh scapp.sh`
+- on Mac only `chmod +x install.sh start.sh`
 - run `install.bat` on Windows or `./install.sh` on Mac to download the latest sciter binaries and the sciter package manager
 - install packages `php bin/spm.phar install`
-- run `scapp.bat` or `./scapp.sh`
+- run `start.bat` or `./start.sh`
 
 ## reference
 
