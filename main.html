@@ -50,8 +50,23 @@ document.ready = function() {
     console.line();
 
     //sync_tests();
-    async_tests();
+    //async_tests();
 }
+
+document.on("click", "button", function(event, button) {
+    switch (button.id) {
+        case "sync":
+            sync_tests();
+            break;
+
+        case "async":
+            async_tests();
+            break;
+
+        default:
+            throw new Error("unknown button");
+    }
+});
 
 function sync_tests()
 {
@@ -166,6 +181,8 @@ function unhandledExceptionHandler(e)
 </script>
 </head>
 <body>
+    <button #sync>sync tests</button>
+    <button #async>async tests</button>
     <plaintext #logger readonly />
 </body>
 </html>
