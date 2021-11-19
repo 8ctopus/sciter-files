@@ -11,13 +11,10 @@
 </style>
 <script type="module">
 
-import {logger} from "vendor/8ctopus/sciter-logger/src/logger.js";
-import * as utils from "vendor/8ctopus/sciter-utils/src/utils.js";
 import * as sys from "@sys";
 import * as sciter from "@sciter";
-
-// capture unhandled exceptions
-logger.capture(unhandledExceptionHandler);
+import {logger} from "vendor/8ctopus/sciter-logger/src/logger.js";
+import * as utils from "vendor/8ctopus/sciter-utils/src/utils.js";
 
 // initialize logger
 logger.init();
@@ -25,9 +22,15 @@ logger.init();
 // attach logger to console
 logger.attach();
 
+// capture unhandled exceptions
+logger.capture(unhandledExceptionHandler);
+
 document.ready = function() {
-    // redirect logger output to plaintext
+    // subscribe to logger messages
     logger.plaintext(document.$("plaintext#logger"));
+
+    // log sciter version
+    console.debug(utils.sciterInfo());
 
     // add support for F5 reload
     utils.addReloadWindow();
@@ -43,9 +46,6 @@ document.ready = function() {
         console.log("Activate window - OK");
     else
         console.error("Activate window - FAILED");
-
-    // log sciter version
-    console.debug(utils.sciterInfo());
 
     console.line();
 
