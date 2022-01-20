@@ -121,12 +121,12 @@ async function asyncTests() {
     console.log(`async read file fs.readFile ${file} -`, sciter.decode(result));
     console.line();
 
-    result = await sys.fs.copyfile(file, ".gitignore.copy");
+    result = await sys.fs.copyfile(file, "test.gitignore.copy");
 
     console.log(`async copy file fs.copyfile ${file} -`, result);
     console.line();
 
-    result = await sys.fs.rename(".gitignore.copy", ".gitignore.copy2");
+    result = await sys.fs.rename("test.gitignore.copy", "test.gitignore.copy2");
 
     console.log("async rename file fs.rename -", result);
     console.line();
