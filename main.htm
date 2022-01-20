@@ -25,7 +25,7 @@ Logger.attach();
 // capture unhandled exceptions
 Logger.capture();
 
-document.ready = function() {
+document.on("ready", function() {
     // subscribe to logger messages
     Logger.plaintext(document.$("plaintext#logger"));
 
@@ -51,7 +51,7 @@ document.ready = function() {
 
     //sync_tests();
     //async_tests();
-}
+});
 
 document.on("click", "button", function(event, button) {
     switch (button.id) {
