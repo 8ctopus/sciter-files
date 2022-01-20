@@ -49,18 +49,18 @@ document.on("ready", function() {
 
     console.line();
 
-    //sync_tests();
-    //async_tests();
+    //syncTests();
+    //asyncTests();
 });
 
 document.on("click", "button", function(event, button) {
     switch (button.id) {
         case "sync":
-            sync_tests();
+            syncTests();
             break;
 
         case "async":
-            async_tests();
+            asyncTests();
             break;
 
         default:
@@ -68,13 +68,12 @@ document.on("click", "button", function(event, button) {
     }
 });
 
-function sync_tests()
-{
-    let file = ".gitignore";
+function syncTests() {
+    const file = ".gitignore";
 
     const stat = sys.fs.$stat(file);
 
-    console.log(`stat object -`, stat);
+    console.log("stat object -", stat);
 
     //console.log(`sync file exists ${file} - isFile ${stat.isFile} - isDirectory ${stat.isDirectory} - isSymbolicLink ${isSymbolicLink}`);
     console.log(`sync file exists ${file} - isFile ${stat.isFile} - isDirectory ${stat.isDirectory}`);
@@ -110,14 +109,12 @@ function sync_tests()
 
     dir = "test";
 
-    console.log(`sync make dir fs.$mkdir ${dir} - `, sys.fs.$mkdir(dir));
+    console.log(`sync make dir fs.$mkdir ${dir} -`, sys.fs.$mkdir(dir));
     console.line();
-
 }
 
-async function async_tests()
-{
-    let file = ".gitignore";
+async function asyncTests() {
+    const file = ".gitignore";
 
     let result = await sys.fs.readFile(file);
 
@@ -129,9 +126,9 @@ async function async_tests()
     console.log(`async copy file fs.copyfile ${file} -`, result);
     console.line();
 
-    result = await sys.fs.rename(".gitignore.copy", ".gitignore.copy2")
+    result = await sys.fs.rename(".gitignore.copy", ".gitignore.copy2");
 
-    console.log("async rename file fs.rename - ", result);
+    console.log("async rename file fs.rename -", result);
     console.line();
 
     let dir = "bin";
@@ -154,7 +151,7 @@ async function async_tests()
     console.log(`async remove dir fs.rmdir ${dir} -`, result);
     console.line();
 
-    let template = "test-XXXXXX";
+    const template = "test-XXXXXX";
 
     result = await sys.fs.mkdtemp(template);
 
