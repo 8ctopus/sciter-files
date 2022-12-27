@@ -1,6 +1,6 @@
 {
   "name": "sciter-files",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This is a [sciter.js](https://sciter.com/) project that experiments with the filesystem.",
   "scripts": {
     "install-sdk": "node ./node_modules/sciter-sandbox/scripts/install.mjs cleanup",
