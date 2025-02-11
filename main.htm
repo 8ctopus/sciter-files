@@ -98,14 +98,14 @@ function syncTests() {
 
     let dir = "bin";
 
-    console.log(`sync read dir  ${dir} -`, sys.fs.$readdir(dir));
+    console.log(`sync read dir ${dir} -`, sys.fs.$readdir(dir));
     console.line();
 
     // DOES NOT EXIST YET
     //console.log(`sync scan dir ${dir} -`, sys.fs.$scandir(dir));
     //console.line();
 
-    dir = "test";
+    dir = "test/test";
 
     console.log(`sync make dir fs.$mkdir ${dir} -`, sys.fs.$mkdir(dir));
     console.line();
@@ -119,14 +119,14 @@ async function asyncTests() {
     console.log(`async read file fs.readFile ${file} -`, sciter.decode(result));
     console.line();
 
-    result = await sys.fs.copyfile(file, "test.gitignore.copy");
+    result = await sys.fs.copyfile(file, "test/.gitignore.copy");
 
-    console.log(`async copy file fs.copyfile ${file} -`, result);
+    console.log(`async copy file fs.copyfile ${file}`, result);
     console.line();
 
-    result = await sys.fs.rename("test.gitignore.copy", "test.gitignore.copy2");
+    result = await sys.fs.rename("test/.gitignore.copy", "test/.gitignore.copy2");
 
-    console.log("async rename file fs.rename -", result);
+    console.log("async rename file fs.rename", result);
     console.line();
 
     let dir = "bin";
@@ -136,10 +136,10 @@ async function asyncTests() {
     console.log(`async read dir fs.readdir ${dir} -`, result);
     console.line();
 
-    dir = "test";
+    dir = "test/test";
 
-    // DOES NOT EXIST
-    //result = sys.fs.mkdir(dir);
+    // async version does not exist
+    result = sys.fs.mkdir(dir);
 
     //console.log(`async make dir fs.mkdir ${dir} -`, result);
     //console.line();
@@ -149,14 +149,14 @@ async function asyncTests() {
     console.log(`async remove dir fs.rmdir ${dir} -`, result);
     console.line();
 
-    const template = "test-XXXXXX";
+    const template = "test/test-XXXXXX";
 
     result = await sys.fs.mkdtemp(template);
 
     console.log(`async create temporary directory fs.mkdtemp ${template} -`, result);
     console.line();
 
-    result = await sys.fs.mkstemp("test-XXXXXX");
+    result = await sys.fs.mkstemp("test/test-XXXXXX");
 
     console.log(`async create temporary file fs.mkstemp ${template} -`, result);
     console.line();

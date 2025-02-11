@@ -4,4 +4,6 @@
 /*.sublime-workspace
 
 /*.log
-/test*
+
+/test/*
+!/test/.gitkeep
