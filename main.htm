@@ -132,11 +132,9 @@ async function asyncTests() {
 
     dir = "test/test";
 
-    // async version does not exist
-    result = sys.fs.mkdir(dir);
-
-    //console.log(`async make dir fs.mkdir ${dir} -`, result);
-    //console.line();
+    result = await sys.fs.mkdir(dir);
+    console.log(`async make dir fs.mkdir ${dir} -`, result);
+    console.line();
 
     result = await sys.fs.rmdir(dir);
     console.log(`async remove dir fs.rmdir ${dir} -`, result);
