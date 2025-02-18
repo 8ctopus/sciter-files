@@ -84,19 +84,18 @@ function syncTests() {
     //console.log(`sync write file ${file} -`, sys.fs.$writefile(file, sciter.encode("test")));
     //console.line();
 
+    console.log(`sync copy file ${file} -`, sys.fs.$copyfile(file, `test/${file}.copy`));
+    console.line();
+
     // DOES NOT EXIST YET
-    //console.log(`sync copy file ${file} -`, sys.fs.$copyfile(file, file + ".copy"));
+    //console.log(`sync rename file ${file} -`, sys.fs.$rename(`test/${file}.copy`, `test/${file}.copy2`));
     //console.line();
 
     // DOES NOT EXIST YET
-    //console.log(`sync rename file ${file} -`, sys.fs.$rename(file + ".copy", file + ".copy2"));
+    //console.log(`sync delete file ${file} -`, sys.fs.$unlink(`test/${file}.copy2`));
     //console.line();
 
-    // DOES NOT EXIST YET
-    //console.log(`sync delete file ${file} -`, sys.fs.$unlink(file + ".copy2"));
-    //console.line();
-
-    let dir = "bin";
+    let dir = "test";
     console.log(`sync read dir ${dir} -`, sys.fs.$readdir(dir));
     console.line();
 
@@ -105,6 +104,9 @@ function syncTests() {
     //console.line();
 
     dir = "test/test";
+    console.log(`sync delete dir fs.$mkdir ${dir} -`, sys.fs.$rmdir(dir));
+    console.line();
+
     console.log(`sync make dir fs.$mkdir ${dir} -`, sys.fs.$mkdir(dir));
     console.line();
 }
@@ -120,6 +122,8 @@ async function asyncTests() {
     console.log(`async copy file fs.copyfile ${file}`, result);
     console.line();
 
+    // not working for the time being
+    // https://sciter.com/forums/topic/sys-fs-rename-not-working/
     result = await sys.fs.rename("test/.gitignore.copy", "test/.gitignore.copy2");
     console.log("async rename file fs.rename", result);
     console.line();
@@ -132,12 +136,12 @@ async function asyncTests() {
 
     dir = "test/test";
 
-    result = await sys.fs.mkdir(dir);
-    console.log(`async make dir fs.mkdir ${dir} -`, result);
-    console.line();
-
     result = await sys.fs.rmdir(dir);
     console.log(`async remove dir fs.rmdir ${dir} -`, result);
+    console.line();
+
+    result = await sys.fs.mkdir(dir);
+    console.log(`async make dir fs.mkdir ${dir} -`, result);
     console.line();
 
     const template = "test/test-XXXXXX";
