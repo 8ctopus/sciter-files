@@ -8,6 +8,10 @@
 
 @import url(node_modules/sciter-logger/src/logger.css);
 
+button {
+    margin: 5dip;
+}
+
 </style>
 <script type="module">
 
@@ -124,8 +128,8 @@ async function asyncTests() {
 
     // not working for the time being
     // https://sciter.com/forums/topic/sys-fs-rename-not-working/
-    result = await sys.fs.rename("test/.gitignore.copy", "test/.gitignore.copy2");
-    console.log("async rename file fs.rename", result);
+        result = await sys.fs.rename("test/.gitignore.copy", "test/.gitignore.copy2");
+        console.log("async rename file fs.rename", result);
     console.line();
 
     let dir = "bin";
