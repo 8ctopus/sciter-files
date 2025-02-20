@@ -126,10 +126,15 @@ async function asyncTests() {
     console.log(`async copy file fs.copyfile ${file}`, result);
     console.line();
 
-    // not working for the time being
-    // https://sciter.com/forums/topic/sys-fs-rename-not-working/
+    try {
         result = await sys.fs.rename("test/.gitignore.copy", "test/.gitignore.copy2");
         console.log("async rename file fs.rename", result);
+    } catch (exception) {
+        console.exception(exception);
+        console.warn('not working for the time being');
+        console.warn('see https://sciter.com/forums/topic/sys-fs-rename-not-working/');
+    }
+
     console.line();
 
     let dir = "bin";
