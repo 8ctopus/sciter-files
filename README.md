@@ -21,8 +21,10 @@ It explores all file system functions, namely: async/sync create, read, write an
 
 ## important considerations
 
-- > sys.fs.* is a thin wrapper of libuv::* that is a wrapper of posix::*
-- Andrew does recommend to use absolute pathes instead of relative. The problem with current working directory is common to all apps that use that API. [See Why is using a relative path generally bad?](https://gist.github.com/DaveRandom/6830e379578a66e2c82593137e79d099#why-is-using-a-relative-path-generally-bad)
+- `__DIR__` is always an URL
+- All `sys.fs` functions expect a path and not an url. Use `URL.toPath(__DIR__ + "file")` to convert
+- `sys.fs` is a thin wrapper of libuv::* that is a wrapper of posix::*
+- Andrew does recommend to use absolute path instead of relative. The problem with current working directory is common to all apps that use that API. [See Why is using a relative path generally bad?](https://gist.github.com/DaveRandom/6830e379578a66e2c82593137e79d099#why-is-using-a-relative-path-generally-bad)
 
 ## SDK reference
 
